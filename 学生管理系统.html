@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+.main{
+    width: 400px;
+    border: 1px solid black;
+    
+    
+}
+.main tr th{
+    background: yellow;
+    width: 100px;
+    border: 1px solid black;
+}
+.main tr td{
+    width: 100px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+</style>
+
+<body>
+    <div id='app'>
+        <input type="text" v-model='iid'>
+        <input type="text" v-model='pname' @keyup.enter='add'>
+        <button v-on:click='add'>添加学生</button>
+        <table class="main">
+            <tr>
+                <th>ID</th>
+                <th>姓名</th>
+                <th>入学时间</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for='(item,index) in student'>
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.time}}</td>
+                <td><a href="javascript:;" @click='del(index)'>删除</a></td>
+            </tr>
+
+
+        </table>
+    </div>
+</body>
+<script src="../vue/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            student: [
+                { id: 1, name: '张三', time: new Date() },
+                { id: 2, name: '李四', time: new Date() },
+                { id: 3, name: '王五', time: new Date() },
+                { id: 4, name: '赵六', time: new Date() },
+            ],
+            iid:'',
+            pname:''
+        },
+
+        methods:{
+            del:function(index){
+                this.student.splice(index,1)
+            },
+            add:function(){
+              this.student.push({
+                 id:this.iid,
+                 name:this.pname,
+                 time:new Date() 
+              }) 
+              this.iid='';
+              this.pname=''; 
+            }
+        }
+    }) 
+</script>
+
+</html>

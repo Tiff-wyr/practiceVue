@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+        .main{
+            width: 400px;
+            border: 1px solid black;
+            
+            
+        }
+    
+        .main tr td{
+            width: 100px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        
+        </style>
+<body>
+        <div id='app'>
+                <input type="text" v-model='iid'>
+              
+                <table class="main">
+                   
+                    <tr v-for='(item,index) in filter'>
+                        <td>{{item.id}}</td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.time}}</td>
+                       
+                    </tr>
+        
+        
+                </table>
+            </div>
+</body>
+<script src="../vue/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            student: [
+                { id: 'aaa', name: '张三', time: new Date() },
+                { id: 'bbb', name: '李四', time: new Date() },
+                { id: 'aab', name: '王五', time: new Date() },
+                { id: 'bbc', name: '赵六', time: new Date() },
+            ],
+            iid:''
+          
+        },
+        methods:{},
+       computed:{
+           filter(){
+               if(!this.iid){
+                   return this.student
+               }else{
+                   return this.student.filter(item=>{
+                       return (item.id.indexOf(this.iid)!=-1)
+                   })
+               }
+           }
+       }
+
+    
+    }) 
+</script>
+</html>
