@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <h1>hello</h1>
+        <p>
+            <router-link to='/wei'>wei</router-link>
+            <router-link to='/ya'>ya</router-link>
+        </p>
+        <router-view></router-view>
+    </div>
+</body>
+<script src="./vue/vue.js"></script>
+<script src="./vue/vue-router.js"></script>
+<script>
+    const routes=[
+        {path:'/wei',component:{template:'<div>hahaah</div>'}},
+        {path:'/ya',component:{template:'<div>yayaya</div>'}}
+    ]
+
+    const router=new VueRouter({
+        routes
+    })
+
+    const app=new Vue({
+        router
+    }).$mount('#app')
+</script>
+</html>

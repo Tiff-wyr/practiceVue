@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <p>
+            <router-link to='/wei/ya'>wei/ya</router-link>
+            <router-link to='/wei/ya/ru'>wei/ya/ru</router-link>
+            <router-link to='/wei/ya/jing'>wei/ya/jing</router-link>          
+        </p>
+        <router-view></router-view>
+    </div>
+</body>
+<script src="./vue/vue.js"></script>
+<script src="./vue/vue-router.js"></script>
+<script>
+  const User={
+     template:`
+     <div>
+        <h2>Wei{{$route.params.id}}</h2>
+        <router-view></router-view>
+     </div>
+     `
+  }  
+  const ru={template:'<div>ru</div>'}
+  const jing={template:'<div>jing</div>'}        
+
+  const router=new VueRouter({
+      routes:[
+          {path:'/wei/:id',component:User,
+            children:[
+                {path:'ru',component:ru},
+                {path:'jing',component:jing},
+            ]
+          }
+      ]
+  })
+  const app=new Vue({
+      router
+  }).$mount('#app')
+</script>
+</html>
