@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="./todoList.css">
+
+<body>
+    <div id="app">
+        <input type="text" placeholder="添加todo" @keyup.enter='add' class="add-todo" v-model='todo'>
+        <ul>
+            <li v-for='(item,index) in arry'>
+                <div class="show">
+                    <div class="content">
+                        <input type="checkbox" v-model='item.isDone' class="check-input" :id='index'>
+                        <label :for='index' :class="item.isDone? 'selector' : '' "></label>
+                        <span @click='change(index)' :class="item.isDone ? 'done':'' ">{{item.todo}}</span>
+                    </div>
+                    <div class="del" @click='delTodo(index)'>X</div>
+                </div>
+
+
+            </li>
+        </ul>
+        <div class="btn-warpper" v-if='arr.length>0'>
+            <button @click='showTodo("all")' :class="showType == 'all'? 'btn active' : 'btn' ">all</button>
+            <button @click='showTodo("active")' :class="showType == 'active'? 'btn active' : 'btn' ">active</button>
+            <button @click='showTodo("complete")' :class="showType == 'complete'? 'btn active' : 'btn' ">complete</button>
+        </div>
+
+    </div>
+</body>
+<script src="./vue/vue.js"></script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            arr: [{
+                    isDone: false,
+                    todo: '代码'
+                },
+                {
+                    isDone: false,
+                    todo: '看剧'
+                },
+                {
+                    isDone: false,
+                    todo: '玩'
+                },
+                {
+                    isDone: false,
+                    todo: '学习'
+                },
+            ],
+            todo:'',
+            showType:'all'
+        },
+        methods: {
+            add: function () {
+               if(this.todo){
+                   this.arr.unshift({
+                       isDone:false,
+                       todo:this.todo
+                   })
+                   this.todo=''
+               }
+            },
+            delTodo:function(index){
+                this.arr.splice(index,1)
+            },
+            showTodo:function(type){
+                this.showType=type;
+            },
+        },
+        computed:{
+            arry(){
+                switch(this.showType){
+                    case 'all':
+                        return this.arr
+                    case 'active':
+                        return this.arr.filter(item=>!item.isDone)
+                    case 'complete':
+                        return this.arr.filter(item=>item.isDone)
+
+                }
+            }
+        }
+    })
+</script>
+
+</html>
